@@ -112,13 +112,15 @@ class Project
             string chromosome = "";
             for (int j = 0; j < GenSize; j++)
             {
-                chromosome += (char)(random.Next(95) + 32);
+                int index = random.Next(0, GENES.Length);
+                chromosome += (char)(GENES[index]);
             }
             population.Add(chromosome);
         }
         return population;
     }
 
+    /* sifre karakteriyle tek tek karsilastirarak fitness degerini hesaplar */
     public static double Fitness(string chromosome)
     {
         int difference = 0;
@@ -130,6 +132,10 @@ class Project
         return difference;
     }
 
+    /* belirlenen crossover olasiligindan kucukse random deger,
+     2 yeni chromosome olusurulur bunlar da substringlere bolunur
+    ve 2 kromozomun farklı bolgeleri birlestirilerek yeni bir kromozom 
+    olusmus olur*/
     public static string[] CrossOver(string chrom1, string chrom2)
     {
         string[] newChromosomes = new string[2];
@@ -148,6 +154,8 @@ class Project
         return newChromosomes;
     }
 
+    /* secilen random indexin degerini random olan bir gen ile degistirerek 
+     farkllilik saglanmaya calisilir*/
     public static string Mutation(string chromosome)
     {
         string newChromosome = "";
@@ -156,7 +164,8 @@ class Project
         {
             if (random.NextDouble() < MUTATION_PROBABILITY)
             {
-                newChromosome += (char)(random.Next(95) + 32);
+                int index = random.Next(0, GENES.Length);
+                newChromosome += (char)(GENES[index]);
             }
             else
             {
@@ -187,6 +196,8 @@ class Project
         }
     }
 
+
+    /* uygun olan kromozom secilir */
     public static string Selection(List<string> population)
     {
         double totalFitness = 0;
