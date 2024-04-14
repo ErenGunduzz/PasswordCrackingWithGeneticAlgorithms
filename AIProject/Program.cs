@@ -9,7 +9,7 @@ class Project
 {
     private static readonly Random random = new Random();
 
-    // Number of individuals in each generation 
+    // Number of individuals in each generation, it can be change to see the effect
     private const int POPULATION_SIZE = 100;
 
     // Valid Genes 
@@ -134,7 +134,7 @@ class Project
     {
         string[] newChromosomes = new string[2];
 
-        if (random.NextDouble() < MUTATION_PROBABILITY)
+        if (random.NextDouble() < CROSSOVER_PROBABILITY)
         {
             int crossOverIndex = random.Next(chrom1.Length);
             newChromosomes[0] = chrom1.Substring(0, crossOverIndex) + chrom2.Substring(crossOverIndex);
